@@ -1,0 +1,125 @@
+version: "3"
+
+networks:
+
+        frontend:
+
+        backend:
+
+volumes:
+        db:
+
+        certs:
+
+        host:
+
+        site:
+
+        portainer_data:
+services:
+
+        nextcloud-db:
+                image: mariadb:10.5
+                container_name: nextcloud-db
+                command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+                restart: always
+                volumes:
+                        - db:/var/lib/mysql
+
+                env_file:
+                        - db.env
+                networks:
+                        - backend
+
+
+
+        nginx-proxy:
+                image: jwilder/nginx-proxy:latest
+                container_name: nginx-proxy
+                labels: 
+                        - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
+                restart: always
+                ports:
+                        - 80:80
+                        - 81:81
+                        - 443:443
+                volumes:
+                        - certs:/etc/nginx/certs
+                        - ./nginx:/etc/nginx/vhost.d
+                        - site:/usr/share/nginx/html
+                        - /var/run/docker.sock:/tmp/docker.sock:ro  
+                networks:
+                        - frontend
+                        - backend
+
+
+        nginx-proxy-letsencrypt:
+                image: jrcs/letsencrypt-nginx-proxy-companion
+                container_name: nginx-proxy-letsencrypt
+                restart: always
+                depends_on:
+                        - nginx-proxy
+                volumes:
+                        - /var/run/docker.sock:/var/run/docker.sock:ro
+                        - certs:/etc/nginx/certs
+                        - ./nginx:/etc/nginx/vhost.d
+                        - site:/usr/share/nginx/html
+                env_file:
+                        - nginx-le.env
+                networks:
+                        - frontend
+                        - backend
+
+
+
+        nextcloud:
+                image: nextcloud:latest
+                container_name: nextcloud
+                restart: always
+                depends_on:
+                        - nextcloud-db
+                volumes:
+                        - /media/harddrive:/var/www/html
+                env_file:
+                        - db.env
+                        - nextcloud.env
+                networks:
+                        - frontend
+                        - backend
+
+        
+        ddns-cloudflare-6:
+                image: oznu/cloudflare-ddns:latest
+                container_name: ddns-cloudflare-6
+                restart: always
+                network_mode : host
+                env_file:
+                        - ddns.env
+                environment:
+                        - "RRTYPE=AAAA"
+
+
+
+        ddns-cloudflare-4:
+                image: oznu/cloudflare-ddns:latest
+                container_name: ddns-cloudflare-4
+                restart: always
+                network_mode : host
+                env_file:
+                        - ddns.env
+                environment:
+                        - "RRTYPE=A"
+
+        
+        portainer:
+                container_name: portainer
+                image: portainer/portainer-ce:latest
+                restart: always
+                volumes:
+                        - /var/run/docker.sock:/var/run/docker.sock
+                        - portainer_data:/data
+                env_file:
+                        - portainer.env
+                networks: 
+                        - frontend
+                        - backend
