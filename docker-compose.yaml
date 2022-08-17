@@ -54,7 +54,7 @@ services:
 
 
         nginx-proxy-letsencrypt:
-                image: jrcs/letsencrypt-nginx-proxy-companion
+                image: jrcs/letsencrypt-nginx-proxy-companion:latest
                 container_name: nginx-proxy-letsencrypt
                 restart: always
                 depends_on:
@@ -79,7 +79,7 @@ services:
                 depends_on:
                         - nextcloud-db
                 volumes:
-                        - /media/harddrive:/var/www/html
+                        - /media/harddrive/nextcloud:/var/www/html
                 env_file:
                         - db.env
                         - nextcloud.env
