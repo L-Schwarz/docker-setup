@@ -16,6 +16,8 @@ volumes:
         site:
 
         portainer_data:
+
+        gitea-db-v:
 services:
 
         nextcloud-db:
@@ -122,4 +124,31 @@ services:
                         - portainer.env
                 networks: 
                         - frontend
+                        - backend
+
+        gitea:
+                image: gitea/gitea:latest
+                container_name: gitea
+                env_file:
+                        - gitea.env
+                volumes:
+                        - /etc/timezone:/etc/timezone:ro
+                        - /etc/localtime:/etc/localtime:ro
+                        - /media/harddrive/gitea:/data
+                depends_on:
+                        - gitea-db 
+                ports:
+                        - "2222:22"          
+                networks:
+                        - backend
+
+        gitea-db:
+                image: mysql:8
+                container_name: gitea-db
+                restart: always
+                env_file:
+                        - gitea-db.env
+                volumes:
+                        - gitea-db-v:/var/lib/mysql
+                networks:
                         - backend
