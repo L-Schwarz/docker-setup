@@ -50,6 +50,8 @@ services:
                         - ./nginx:/etc/nginx/vhost.d
                         - site:/usr/share/nginx/html
                         - /var/run/docker.sock:/tmp/docker.sock:ro  
+                env_file:
+                        - nginx.env
                 networks:
                         - frontend
                         - backend
