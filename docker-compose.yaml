@@ -73,7 +73,6 @@ services:
                 env_file:
                         - nginx-le.env
                 networks:
-                        - frontend
                         - backend
 
 
@@ -90,7 +89,6 @@ services:
                         - db.env
                         - nextcloud.env
                 networks:
-                        - frontend
                         - backend
 
         
@@ -127,7 +125,6 @@ services:
                 env_file:
                         - portainer.env
                 networks: 
-                        - frontend
                         - backend
 
         gitea:
