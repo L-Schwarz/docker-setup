@@ -41,6 +41,7 @@ PROXIED=true
 ```
 
 ### gitea.env
+note: proxy from cloudflare is not possible with gitea
 
 ```
 USER_UID=<your uid for git user>
@@ -96,6 +97,17 @@ VIRTUAL_HOST=<your subdomain>
 LETSENCRYPT_HOST=<your subdomain>
 VIRTUAL_PORT=9000
 
+```
+
+### vpn.env
+note: proxy from cloudflare is not possible with the vpn
+
+```
+VIRTUAL_HOST=<your virtual host>
+PASSWORD=<your password>
+LETSENCRYPT_HOST=<your letsencrypt host>
+VIRTUAL_PORT=51821
+WG_HOST=<your virtual host>
 ```
 
 ## Author

@@ -180,5 +180,7 @@ services:
                         - net.ipv4.conf.all.src_valid_mark=1
                 env_file:
                         - vpn.env
+                ports:
+                        - 51820:51820/udp
                 networks:
                         - backend
