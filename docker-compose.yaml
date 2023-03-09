@@ -18,6 +18,8 @@ volumes:
         portainer_data:
 
         gitea-db-v:
+
+        vpn:
 services:
 
         nextcloud-db:
@@ -162,5 +164,23 @@ services:
                         - bitwarden.env
                 volumes:
                         - /media/harddrive/bitwarden:/data
+                networks:
+                        - backend
+        vpn:
+                image: weejewel/wg-easy:latest
+                container_name: vpn
+                restart: always
+                volumes: 
+                        - vpn:/etc/wireguard
+                cap_add:
+                        - NET_ADMIN
+                        - SYS_MODULE
+                sysctls:
+                        - net.ipv4.ip_forward=1
+                        - net.ipv4.conf.all.src_valid_mark=1
+                env_file:
+                        - vpn.env
+                ports:
+                        - 51820:51820/udp
                 networks:
                         - backend
