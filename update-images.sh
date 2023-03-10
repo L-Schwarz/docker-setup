@@ -7,3 +7,4 @@ docker pull gitea/gitea
 docker pull oznu/cloudflare-ddns
 docker pull portainer/portainer-ce
 docker pull vaultwarden/server
+docker pull weejewel/wg-easy:latest
