@@ -9,7 +9,7 @@ This repository contains the docker-compose.yaml to set up a privat microservice
 Within the docker-compose.yaml are references for environment files (e.g. db.env), all named with *.env. These files are user specific, containing secrets and personal data like passwords and email addresses. These files need to be created and put into the same directory, where the docker-compose.yaml file is located. <br><br>
 The update-image.sh upgrades every image, that can be upgraded and should be executed at least once per week (can be scheduled with e.g. Crontab). The automatic rebuild of the docker container is not included but can be added if wished.
 
-## Example for each Environment file
+## Example for each Environment and config file
 
 ### bitwarden.env
 
@@ -67,6 +67,15 @@ MYSQL_DATABASE=<your database name>
 
 ```
 
+### grafana.env
+
+```
+VIRTUAL_HOST=<your subdomain>
+LETSENCRYPT_HOST=<your subdomain>
+VIRTUAL_PORT=3333
+
+```
+
 ### nextcloud.env
 
 ```
@@ -108,6 +117,22 @@ PASSWORD=<your password>
 LETSENCRYPT_HOST=<your letsencrypt host>
 VIRTUAL_PORT=51821
 WG_HOST=<your virtual host>
+```
+
+### prometheus.yml
+
+```
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'node_exporter'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['<ip address of node-exporter, e.g. 170.0.0.1:9100>']
+
+
 ```
 
 ## Author

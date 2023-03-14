@@ -229,7 +229,7 @@ services:
                 networks:
                         - monitoring
         grafana:
-                image: grafana/grafana
+                image: grafana/grafana:latest
                 env_file:
                         - grafana.env
                 container_name: grafana
