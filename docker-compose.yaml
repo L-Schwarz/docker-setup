@@ -239,4 +239,15 @@ services:
                         - grafana_data:/var/lib/grafana
                 networks:
                         - monitoring
-
+        collabora:
+                image: collabora/code:latest
+                env_file:
+                        - collabora.env
+                container_name: collabora
+                restart: always
+                expose:
+                        - "9980"
+                cap_add:
+                        - MKNOD
+                networks:
+                        - backend
