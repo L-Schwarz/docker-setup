@@ -20,6 +20,17 @@ WEBSOCKET_ENABLED=true
 SIGNUPS_ALLOWED=false
 ```
 
+### collabora.env
+
+```
+VIRTUAL_HOST=<your subdomain>
+LETSENCRYPT_HOST=<your subdomain>
+LETSENCRYPT_EMAIL=<your email>
+domain=<your subdomain for nextcloud>
+VIRTUAL_PORT=9980
+VIRTUAL_PROTO=https
+```
+
 ### db.env
 
 ```

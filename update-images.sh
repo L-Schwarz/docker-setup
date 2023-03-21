@@ -11,3 +11,4 @@ docker pull weejewel/wg-easy:latest
 docker pull prom/node-exporter
 docker pull prom/prometheus
 docker pull grafana/grafana
+docker pull collabora/code
