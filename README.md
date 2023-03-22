@@ -103,6 +103,13 @@ SSL_POLICY=Mozilla-Modern
 
 ```
 
+### nginx folder
+
+create a folder within your directory named "nginx". Within this folder create a file named <cloud domain> (e.g. cloud.mustermann.com) containing the following line:
+```
+client_max_body_size 50G;
+```
+
 ### nginx-le.env
 
 ```
