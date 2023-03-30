@@ -31,6 +31,17 @@ VIRTUAL_PORT=9980
 VIRTUAL_PROTO=https
 ```
 
+### cryptgeon.env
+
+The SIZE_LIMIT can be changed as desired from 1K to 512M.
+```
+VIRTUAL_HOST=<your subdomain>
+LETSENCRYPT_HOST=<your subdomain>
+LETSENCRYPT_EMAIL=<your mail address>
+VIRTUAL_PORT=8000
+SIZE_LIMIT=512M
+```
+
 ### db.env
 
 ```

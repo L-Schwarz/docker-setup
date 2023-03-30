@@ -249,3 +249,20 @@ services:
                         - MKNOD
                 networks:
                         - backend
+        redis:
+                image: redis:7-alpine
+                container_name: redis
+                restart: always
+                command: redis-server --maxmemory 1gb --maxmemory-policy allkeys-lru
+                networks:
+                        - backend
+        cryptgeon:
+                image: cupcakearmy/cryptgeon:latest
+                container_name: cryptgeon
+                depends_on:
+                        - redis
+                env_file:
+                        - cryptgeon.env
+                restart: always
+                networks:
+                        - backend
