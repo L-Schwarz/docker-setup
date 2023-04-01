@@ -12,3 +12,4 @@ docker pull prom/node-exporter
 docker pull prom/prometheus
 docker pull grafana/grafana
 docker pull collabora/code
+docker pull cupcakearmy/cryptgeon
